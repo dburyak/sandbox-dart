@@ -4,7 +4,9 @@ main() {
   person.name = 'Bob';
   person.age = 42;
   print(person);
-  assert(person.age == 0, 'should be ${person.age}');
+  // assert(person.age == 0, 'should be ${person.age}');
+
+  print('Hello' ' world!' ' I am' ' Dart!');
 }
 
 class Person {
