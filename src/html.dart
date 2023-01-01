@@ -7,6 +7,8 @@ main() {
   button.onClick.listen((e) {
     var buttons = querySelectorAll('button');
     print('button click');
+    var test = 123 + 245;
+    print('test = ${test}');
     window.alert('You clicked ${buttons.length} buttons!');
   });
   print("body is null: ${document.body == null}");

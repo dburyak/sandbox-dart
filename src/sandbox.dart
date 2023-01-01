@@ -9,10 +9,14 @@ main() {
   print('Hello' ' world!' ' I am' ' Dart!');
 }
 
+/// Person class.
 class Person {
-  var _name;
-  var age;
+  late String _name;
+  late int age;
 
+  /// Person constructor.
+  /// * [name] the name of the person
+  /// * [param] age the age of the person
   Person(String name, int age) {
     print('Person constructor');
     this._name = name;
