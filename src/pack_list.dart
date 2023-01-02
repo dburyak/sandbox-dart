@@ -77,6 +77,8 @@ class PackItem {
     _div.text = name;
     _div.className = 'item';
     _div.onClick.listen((_) => _toggle());
+    _div.onMouseEnter.listen((_) => _div.classes.add('highlight'));
+    _div.onMouseLeave.listen((_) => _div.classes.remove('highlight'));
   }
 
   DivElement get ui => _div;
