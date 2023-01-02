@@ -63,26 +63,26 @@ attachAddListeners(ButtonElement addBtn, InputElement input,
 }
 
 buildItem(String itemStr) {
-  final item = new PackItem(itemStr, false);
+  final item = new PackItem(itemStr);
   return item.ui;
 }
 
 class PackItem {
   String name;
-  bool checked;
+  bool _checked = false;
   late DivElement _div;
 
-  PackItem(this.name, this.checked) {
+  PackItem(this.name) {
     _div = new DivElement();
     _div.text = name;
-    _div.className = checked ? 'item checked' : 'item';
+    _div.className = 'item';
     _div.onClick.listen((_) => _toggle());
   }
 
-  get ui => _div;
+  DivElement get ui => _div;
 
   void _toggle() {
-    checked = !checked;
-    _div.className = checked ? 'item checked' : 'item';
+    _checked = !_checked;
+    _div.className = _checked ? 'item checked' : 'item';
   }
 }
