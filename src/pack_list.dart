@@ -69,22 +69,28 @@ buildItem(String itemStr) {
 
 class PackItem {
   String name;
-  bool _checked = false;
+  bool _isChecked = false;
   late DivElement _div;
 
   PackItem(this.name) {
     _div = new DivElement();
     _div.text = name;
     _div.className = 'item';
-    _div.onClick.listen((_) => _toggle());
+    _div.onClick.listen((_) => toggle());
     _div.onMouseEnter.listen((_) => _div.classes.add('highlight'));
     _div.onMouseLeave.listen((_) => _div.classes.remove('highlight'));
   }
 
   DivElement get ui => _div;
 
-  void _toggle() {
-    _checked = !_checked;
-    _div.className = _checked ? 'item checked' : 'item';
+  bool get isChecked => _isChecked;
+
+  set isChecked(bool isChecked) {
+    _isChecked = isChecked;
+    _div.className = isChecked ? 'item checked' : 'item';
+  }
+
+  void toggle() {
+    isChecked = !isChecked;
   }
 }
