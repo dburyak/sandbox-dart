@@ -87,7 +87,11 @@ class PackItem {
 
   set isChecked(bool isChecked) {
     _isChecked = isChecked;
-    _div.className = isChecked ? 'item checked' : 'item';
+    if (isChecked) {
+      _div.classes.add('checked');
+    } else {
+      _div.classes.remove('checked');
+    }
   }
 
   void toggle() {
