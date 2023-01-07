@@ -1,6 +1,6 @@
 main() {
   print('Hello, world!');
-  var person = new Person('Bob', 42);
+  var person = Person('Bob', 42);
   person.name = 'Bob';
   person.age = 42;
   print(person);
@@ -17,16 +17,16 @@ class Person {
   /// Person constructor.
   /// * [name] the name of the person
   /// * [param] age the age of the person
-  Person(String name, int age) {
+  Person(String name, this.age) {
     print('Person constructor');
-    this._name = name;
-    this.age = age;
+    _name = name;
   }
 
   set name(var name) {
     print('Setting name to $name');
-    this._name = name;
+    _name = name;
   }
 
+  @override
   toString() => 'Person($_name, $age)';
 }
