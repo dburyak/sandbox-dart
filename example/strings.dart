@@ -22,4 +22,6 @@ last line""");
   ''');
   print('--------------------------');
   print(r'raw string with \backslashes\ and ${no interpolation}');
+
+  print('concat' + ' with' + ' plus' + ' operator');
 }
