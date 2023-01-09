@@ -5,9 +5,7 @@ extension ListExtension<T> on List<T> {
     } else if (T == double) {
       return fold(0.0, (dynamic sum, dynamic element) => sum + element);
     } else {
-      return fold(0.0, (dynamic sum, dynamic it) {
-        return double.parse(sum.toString()) + double.parse(it.toString());
-      });
+      throw ArgumentError('List must be of type int or double');
     }
   }
 
@@ -15,13 +13,21 @@ extension ListExtension<T> on List<T> {
     return sum() / length;
   }
 
-  String join([String separator = '']) {
-    return fold('', (dynamic sum, dynamic it) {
-      if (sum.isEmpty) {
-        return it.toString();
-      } else {
-        return '$sum$separator$it';
-      }
-    });
+  num max() {
+    if (T == int || T == double) {
+      return fold(double.negativeInfinity,
+          (dynamic max, dynamic it) => max > it ? max : it);
+    } else {
+      throw ArgumentError('List must be of type int or double');
+    }
+  }
+
+  num min() {
+    if (T == int || T == double) {
+      return fold(
+          double.infinity, (dynamic min, dynamic it) => min < it ? min : it);
+    } else {
+      throw ArgumentError('List must be of type int or double');
+    }
   }
 }

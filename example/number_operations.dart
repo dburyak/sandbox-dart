@@ -26,4 +26,7 @@ main() {
   var exp = 1.42e5;
   var parsedInt = int.parse('24');
   var parsedDouble = double.parse('24.42');
+
+  print('1 > nan: ${1 > double.nan}');
+  print('1 < infinity: ${1 < -double.infinity}');
 }

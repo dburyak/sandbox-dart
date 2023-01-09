@@ -7,6 +7,7 @@ main() {
   // assert(person.age == 0, 'should be ${person.age}');
 
   print('Hello' ' world!' ' I am' ' Dart!');
+  print(someFn(1.1, 2.2));
 }
 
 /// Person class.
@@ -29,4 +30,8 @@ class Person {
 
   @override
   toString() => 'Person($_name, $age)';
+}
+
+someFn(one, two) {
+  return one.round() + two.round();
 }
