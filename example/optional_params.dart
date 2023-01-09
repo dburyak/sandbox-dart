@@ -35,6 +35,7 @@ void printSeveral(String msg1, [String? msg2, String? msg3]) {
 
 void printSeveralDefault(String msg1,
     [String msg2 = 'no msg2 provided', String msg3 = 'no msg3 provided']) {
+  // NOTE: default values should be compile-time constants
   print(msg1);
   print(msg2);
   print(msg3);
@@ -71,4 +72,15 @@ void printSeveralNamedDefaultDyn(msg1,
   print(msg1);
   print(msg2);
   print(msg3);
+}
+
+// required
+void namedRequired({String msg1 = 'not provided', required String msg2}) {
+  print(msg1);
+  print(msg2);
+}
+
+void namedRequiredNullable({String? msg1, required String? msg2}) {
+  print(msg1 ?? 'no msg1 provided');
+  print(msg2 ?? 'no msg2 provided');
 }

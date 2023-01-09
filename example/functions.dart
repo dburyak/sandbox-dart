@@ -16,6 +16,20 @@ main() {
     (String it) => '$it - xxx',
     (String it) => '$it - |||',
   ]));
+
+  // we can call object as a function if it has a call() method
+  //  similar to groovy closures
+  final fn4 = ClassCallableAsFunction();
+  fn4('hello from callable class');
+
+  // trailing commas - useful for specifying params in multiple lines
+  someFnWithTrailingCommas('one', 'two');
+  someFnWithTrailingCommas('one', 'two',);
+
+
+
+  // TODO: page 95 after finishing "function" section in the docs:
+  // https://dart.dev/guides/language/language-tour#the-main-function
 }
 
 void fn1() {}
@@ -66,3 +80,12 @@ Iterable<String> mangle(List<String> list) {
   final mangler = mangleLocal;
   return list.map(mangler);
 }
+
+// implement "call" method to make a class callable
+class ClassCallableAsFunction {
+  call(String msg) {
+    print(msg);
+  }
+}
+
+someFnWithTrailingCommas(one, two,) => '$one - $two';
