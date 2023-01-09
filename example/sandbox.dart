@@ -1,3 +1,6 @@
+// TODO: page 95 after finishing operators, control flow, exceptions sections in the docs:
+// https://dart.dev/guides/language/language-tour#assignment-operators
+
 main() {
   print('Hello, world!');
   var person = Person('Bob', 42);
