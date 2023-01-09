@@ -25,11 +25,6 @@ main() {
   // trailing commas - useful for specifying params in multiple lines
   someFnWithTrailingCommas('one', 'two');
   someFnWithTrailingCommas('one', 'two',);
-
-
-
-  // TODO: page 95 after finishing "function" section in the docs:
-  // https://dart.dev/guides/language/language-tour#the-main-function
 }
 
 void fn1() {}
