@@ -1,3 +1,5 @@
+library fin;
+
 export 'src/fin/shopping.dart' show Shopping;
 export 'src/fin/purchase.dart' show Purchase;
 export 'src/fin/receipt.dart' show Receipt;
