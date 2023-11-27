@@ -58,12 +58,11 @@ void main() {
 class ImplementsPublicClassInOtherFile implements PublicClass {
   @override
   void publicMethod() {
-    // TODO: implement publicMethod
+    print("$runtimeType.publicMethod");
   }
 
   @override
-  // TODO: implement publicProperty
-  String get publicProperty => "publicProperty";
+  String get publicProperty => "$runtimeType.publicProperty";
 }
 
 // In different file private members are not accessible and thus do not conform
@@ -71,12 +70,12 @@ class ImplementsPublicClassInOtherFile implements PublicClass {
 class ImplementsPublicInterfaceInOtherFile implements PublicInterface {
   @override
   void publicAbstractMethod() {
-    // TODO: implement publicAbstractMethod
+    print("$runtimeType.publicAbstractMethod");
   }
 
   @override
   void publicMethodWithBody() {
-    // TODO: implement publicMethodWithBody
+    print("$runtimeType.publicMethodWithBody");
   }
 }
 
