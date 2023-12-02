@@ -177,3 +177,38 @@ class AuthError {
 
   const AuthError(this.code, this.message);
 }
+
+class Parent {
+  final String parentStrProp;
+  final int parentIntProp;
+
+  Parent(this.parentStrProp, this.parentIntProp);
+
+  Parent.namedParent(String parentStrProp, int parentIntProp)
+      : parentStrProp = parentStrProp.trim(),
+        parentIntProp = parentIntProp.abs();
+}
+
+class Child extends Parent {
+  final String childStrProp;
+  final int childIntProp;
+
+  Child(String childStrProp, int childIntProp)
+      : childStrProp = childStrProp.toLowerCase(),
+        childIntProp = childIntProp.abs(),
+        super('default', 0);
+
+  Child.namedChild(String childParam)
+      : childStrProp = childParam.trim(),
+        childIntProp = childParam.length,
+        super.namedParent(childParam, 0);
+
+/* error:
+  The superconstructor call must be last in an initializer list: 'Parent'.
+
+  Child(String childStrProp, int childIntProp) :
+        super('default', 0),
+        childStrProp = childStrProp.toLowerCase(),
+        childIntProp = childIntProp.abs();
+   */
+}

@@ -4,6 +4,9 @@ void main() {
   performer.perform();
   print("is musical? ${performer is Musical}");
   print("is entertainer? ${performer is Entertainer}");
+
+  var movingPerson = MovingPerson();
+  movingPerson.move();
 }
 
 // -------------------- simple ------------------------
@@ -150,7 +153,7 @@ class TabletPainter with DrawableOnTablet implements Drawable {
   }
 }
 
-// ---------------------  -----------------------
+// --------------------- on + implements -----------------------
 abstract interface class Speaking {
   void speak();
 }
@@ -171,14 +174,27 @@ mixin British implements NativeSpeaker {
   String get language => 'English';
 }
 
-class BritishPerson with British, CivilizedHuman {
-}
+class BritishPerson with British, CivilizedHuman {}
 
-// ----------------------------------------------
+// ---------------- mixins override ----------------
 mixin Moving {
   String get movementType;
 
   void move() {
     print('Moving with $movementType');
   }
+}
+
+mixin Moving2 {
+  void move() {
+    print('Moving - 2');
+  }
+}
+
+class MovingPerson with Moving, Moving2 {
+  @override
+  String get movementType => 'walking';
+
+// "move" method from Moving2 is used (last mixin wins, so you can override
+// existing classes composed of mixins by adding more mixins)
 }
