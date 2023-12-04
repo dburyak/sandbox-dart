@@ -1,6 +1,6 @@
 import 'int_extension.dart';
-import 'string_extension.dart';
 import 'list_extensions.dart';
+import 'string_extension.dart';
 
 main() {
   5.times(print);
@@ -39,4 +39,15 @@ main() {
   print('join: ${['1', '2', '3', '4', '5'].join('||')}');
 
   print(StringExtension('42').toInt());
+
+  // using operators from list extension
+  var list = [1, 2, 3, 4, 5];
+  print('list: $list');
+  print('list + [6, 7, 8]: ${list + [6, 7, 8]}');
+  print('list - [2, 4, 6]: ${list - [2, 4, 6]}');
+  print('list * 3: ${list * 3}');
+  list << 6;
+  list << 7;
+  list << 8;
+  print('list << 6 << 7 << 8: $list');
 }

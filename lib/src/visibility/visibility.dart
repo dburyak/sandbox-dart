@@ -141,3 +141,51 @@ class ImplementsPublicInterfaceInSameFile implements PublicInterface {
     // TODO: implement _privateMethodWithBody
   }
 }
+
+// inside same file you can break the rule "can not extend interface", "interface" doesn't work properly inside
+// same file
+class ExtendsPublicInterfaceInSameFile extends PublicInterface {
+  @override
+  void _privateAbstractMethod() {
+    print('ExtendsPublicInterfaceInSameFile._privateAbstractMethod');
+  }
+
+  @override
+  void publicAbstractMethod() {
+    print('ExtendsPublicInterfaceInSameFile.publicAbstractMethod');
+  }
+}
+
+
+
+// -----------------------------------------------------
+abstract base class PublicAbstractClass implements PublicInterface {
+  void publicAbstractMethod();
+
+  void publicMethodWithBody() {
+    print('Public method with body');
+  }
+
+  void _privateAbstractMethod();
+
+  void _privateMethodWithBody() {
+    print('Private method with body');
+  }
+}
+
+final class PublicFinalClass extends PublicAbstractClass {
+  @override
+  void _privateAbstractMethod() {
+    // TODO: implement _privateAbstractMethod
+  }
+
+  @override
+  void publicAbstractMethod() {
+    // TODO: implement publicAbstractMethod
+  }
+}
+
+// "final" doesn't work properly inside same file - we extended final class
+final class ExtendsFinalClass extends PublicFinalClass {
+
+}

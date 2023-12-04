@@ -94,3 +94,8 @@ class ExtendsPublicInterfaceInOtherFile extends PublicInterface {
     // TODO: implement _privateAbstractMethod
   }
 }
+
+// in Dart2 style, everything is treated as one big file, so it is possible to
+// extend final class outside of the original file.
+final class ExtendsPublicClassOutsideLibrary extends PublicFinalClass {
+}

@@ -11,6 +11,10 @@ main() {
 
   print('Hello' ' world!' ' I am' ' Dart!');
   print(someFn(1.1, 2.2));
+
+  var dynRes = someFn(1.0, 2.0);
+  // compiler infers dynRes type as "dynamic" because of the absence of
+  // return type in someFn declaration
 }
 
 /// Person class.

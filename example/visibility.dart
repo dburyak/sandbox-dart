@@ -13,6 +13,7 @@ void main() {
   pub._privateMethod();
   PublicClass._privateStaticMethod();
    */
+
 }
 
 class ExtendsPublicClassOutsideLibrary extends PublicClass {

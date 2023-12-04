@@ -87,3 +87,11 @@ class ImplementsPublicInterfaceInOtherFile implements PublicInterface {
     // TODO: implement publicAbstractMethod
   }
 }*/
+
+// "final" works properly only when usage is in a different file
+// ERROR: The class 'PublicFinalClass' can't be extended outside of its library because it's a final class.
+/*
+class ExtendsFinalClassInOtherFile extends PublicFinalClass {
+
+}
+ */

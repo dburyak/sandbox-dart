@@ -30,4 +30,21 @@ extension ListExtension<T> on List<T> {
       throw ArgumentError('List must be of type int or double');
     }
   }
+
+  List<T> operator +(List<T> other) {
+    return [...this, ...other];
+  }
+
+  List<T> operator -(List<T> other) {
+    return where((it) => !other.contains(it)).toList();
+  }
+
+  List<T> operator *(int times) {
+    return List.generate(times, (index) => this[index % length]);
+  }
+
+  List<T> operator <<(T element) {
+    add(element);
+    return this;
+  }
 }

@@ -123,3 +123,30 @@ class ImplementsPublicInterfaceInSameFile implements PublicInterface {
     // TODO: implement _privateMethodWithBody
   }
 }
+
+// -----------------------------------------------------
+abstract base class PublicAbstractClass implements PublicInterface {
+  void publicAbstractMethod();
+
+  void publicMethodWithBody() {
+    print('Public method with body');
+  }
+
+  void _privateAbstractMethod();
+
+  void _privateMethodWithBody() {
+    print('Private method with body');
+  }
+}
+
+final class PublicFinalClass extends PublicAbstractClass {
+  @override
+  void _privateAbstractMethod() {
+    // TODO: implement _privateAbstractMethod
+  }
+
+  @override
+  void publicAbstractMethod() {
+    // TODO: implement publicAbstractMethod
+  }
+}
