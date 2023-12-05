@@ -7,6 +7,10 @@ void main() {
 
   var movingPerson = MovingPerson();
   movingPerson.move();
+  
+  // 
+  var conflictingPerson = ConflictingPerson();
+  conflictingPerson.sayHello();
 }
 
 // -------------------- simple ------------------------
@@ -197,4 +201,17 @@ class MovingPerson with Moving, Moving2 {
 
 // "move" method from Moving2 is used (last mixin wins, so you can override
 // existing classes composed of mixins by adding more mixins)
+}
+
+// ---------------- method conflicts ----------------
+mixin PersonMixin {
+  void sayHello() {
+    print('PersonMixin.hello');
+  }
+}
+
+class ConflictingPerson with PersonMixin {
+  void sayHello() {
+    print('Person.hello');
+  }
 }
