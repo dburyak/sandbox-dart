@@ -23,6 +23,8 @@ void handleAnimalGood(Animal animal) {
   print("animal.parent: ${animal.parent}");
   var rabbit = Rabbit("prey");
   animal.chase(rabbit);
+  var alligator = Alligator("predator");
+  animal.chase(alligator);
 }
 
 void handleAnimalBad(Animal animal) {
@@ -46,14 +48,19 @@ void handleAnimalBad(Animal animal) {
   }
 }
 
-class Animal {
+class NamedCreature {
   String name;
+
+  NamedCreature(this.name);
+}
+
+class Animal extends NamedCreature {
 
   void chase(Animal other) {}
 
   Animal get parent => Animal("blah");
 
-  Animal(this.name);
+  Animal(super.name);
 
   @override
   String toString() {
@@ -64,9 +71,22 @@ class Animal {
 class Alligator extends Animal {
   String skin = "alligator skin";
 
+  // ERROR: you can't change receiving parameter type to more specialized one, only
+  // to more generic
+  // 'Alligator.chase' ('void Function(Rabbit)') isn't a valid override of 'Animal.chase' ('void Function(Animal)')
+  /*@override
+  void chase(Rabbit rabbit) {
+    print("alligator chases rabbit: $rabbit");
+  }*/
+
+  // you can only "widen" the type of the receiving parameter, make it more generic
+  // here we changed "Animal" to more generic "NamedCreature"
   @override
-  void chase(Animal other) {
-    print("alligator chases everything: $other");
+  void chase(NamedCreature other) {
+    if (other is! Rabbit) {
+      throw ArgumentError("alligator can only chase rabbits");
+    }
+    print("alligator chases only rabbits: ${other.fur}");
   }
 
   @override
@@ -90,6 +110,8 @@ class HoneyBadger extends Animal {
     print("alligator chase everything: $other");
   }
 
+  // you can "narrow" (use more specialized type) in return type
+  // here we changed "Animal" to more specialized "HoneyBadger"
   @override
   HoneyBadger get parent => HoneyBadger("parent honey badger");
 
