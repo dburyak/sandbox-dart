@@ -1,12 +1,29 @@
+import 'dart:collection';
+
 main() {
   _lists();
   _sets();
   _maps();
+  _iterable();
+  _queues();
 }
 
 _lists() {
   // lists - there are no arrays, only lists
-  var list = [1, 2, 3];
+  // lists can be growable and fixed-length
+  var listFixed = List.of([1, 2, 3], growable: false); // fixed-length
+  // listFixed.add(4); // throws UnsupportedError
+  // Unsupported operation: Cannot add to a fixed-length list
+  listFixed[0] = 0; // it's still modifiable though, fixed-length != immutable
+  // listFixed[3] = 4; // throws RangeError
+  // RangeError (index): Invalid value: Not in inclusive range 0..2: 3
+
+  var list = [1, 2, 3]; // mutable, growable
+  list.add(4);
+  list[0] = 100;
+  print("list = $list"); // 100, 2, 3, 4
+  // list[4] = 5; // RangeError (index): Invalid value: Not in inclusive range 0..3: 4
+
   var immutableConstList = const [1, 2, 3];
   var immutableList = List.unmodifiable(list);
   // trailing comma is allowed
@@ -95,8 +112,7 @@ _maps() {
   map11['one'] = 1;
   map11['two'] = 2;
   map11['three'] = 3;
-  var map12 =
-      Map<String, int>.fromIterables(['one', 'two', 'three'], [1, 2, 3]);
+  var map12 = Map<String, int>.fromIterables(['one', 'two', 'three'], [1, 2, 3]);
   var map13 = Map<String, int>.fromEntries([
     MapEntry('one', 1),
     MapEntry('two', 2),
@@ -110,4 +126,56 @@ _maps() {
 int _someFn(int param) {
   // param is non-null by default
   return param;
+}
+
+_iterable() {
+  print('--------------------- iterable ------------------------');
+  Iterable iterable = [1, 2, 3];
+  var it = iterable.iterator;
+  while (it.moveNext()) {
+    print(it.current);
+  }
+
+  print('iterator - 2');
+  var it2 = iterable.iterator;
+  for (var i = 0; i < 5; i++) {
+    // get "current" from not yet moved iterator
+    // behavior for first iteration is undefined (depends on the iterable impl)
+    print(it2.current);
+    it2.moveNext();
+    print(it2.current);
+    // get "current" from iterator beyond the last element
+    // behavior in this case is undefined (depends on the iterable impl)
+
+    // no exception is thrown for literal list, "current" returns null
+  }
+}
+
+_queues() {
+  print('--------------------- queues ------------------------');
+  // FIFO (ListQueue impl)
+  var queue = Queue.of([1, 2, 3]);
+  print("queue: $queue");
+  queue.add(4);
+  queue.add(5);
+  queue.add(6);
+  print("queue: $queue");
+  print(queue.removeFirst());
+  print("queue: $queue");
+  print(queue.removeLast());
+  print("queue: $queue");
+  print(queue.removeFirst());
+  print("queue: $queue");
+  print(queue.removeLast());
+  print("queue: $queue");
+  print(queue.removeFirst());
+  print("queue: $queue");
+  print(queue.removeLast());
+  print("queue: $queue");
+  try {
+    print(queue.removeFirst()); // throws StateError
+  } on StateError catch (e) {
+    print("exception: type=${e.runtimeType}, msg=$e");
+    // exception: type=StateError, msg=Bad state: No element
+  }
 }
