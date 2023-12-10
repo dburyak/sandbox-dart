@@ -37,6 +37,9 @@ void main() {
   // That's not what we want, we should forbid putting any other types other
   // than subtype of Animal
   // var cageOfStrings = AnimalCage<String>();
+
+  _untypedCollections();
+  _genericFunctions();
 }
 
 // --------------------------------
@@ -80,7 +83,6 @@ class AlligatorCodec implements AnimalCodec<Alligator> {
     // TODO: implement encode
     throw UnimplementedError();
   }
-
 }
 
 class Codec<In, Out> {
@@ -110,7 +112,6 @@ class AnimalCage<T extends Animal> {
   }
 }
 
-
 class NamedCreature {
   String name;
 
@@ -118,7 +119,6 @@ class NamedCreature {
 }
 
 class Animal extends NamedCreature {
-
   void chase(Animal other) {}
 
   Animal get parent => Animal("blah");
@@ -204,5 +204,62 @@ class Rabbit extends Animal {
 
   void eatGrass() {
     print("grass is boring, but I'm a rabbit, so ...");
+  }
+}
+
+_untypedCollections() {
+  // untyped list is a list of "dynamic" objects
+  var untypedSet = Set();
+  print("type           : ${untypedSet.runtimeType}"); // _Set<dynamic>
+  print("is Set<dynamic>: ${untypedSet is Set<dynamic>}"); // true
+  print("is Set<Object> : ${untypedSet is Set<Object>}"); // false
+
+  // any list is a list of "dynamic" objects
+  var someList = [1, 2, 3, 4];
+  print("type=${someList.runtimeType}, isListOfDynamic=${someList is List<dynamic>}");
+}
+
+_genericFunctions() {
+  // type parameter can be used in return type, in params, and local variables
+  // generic function
+  T? first<T>(List<T> list) {
+    if (list.isEmpty) {
+      return null;
+    }
+    return list.first;
+  }
+
+  // generic function with type constraint
+  T? firstWhere<T extends NamedCreature>(List<T> list, bool Function(T) predicate) {
+    for (var item in list) {
+      if (predicate(item)) {
+        return item;
+      }
+    }
+    return null;
+  }
+
+  // generic functions can be members of non-generic class too, their type
+  // parameter value is determined by the caller
+  var someClass = SomeClass();
+  var strRes = someClass.instanceMethod("some string");
+  var intRes = someClass.instanceMethod(123);
+  var staticStrRes = SomeClass.staticMethod("string");
+  var staticIntRes = SomeClass.staticMethod(123);
+
+  // also you can specify type parameter explicitly
+  var staticStrRes2 = SomeClass.staticMethod<String>("string");
+  var staticIntRes2 = SomeClass.staticMethod<int>(123);
+  var strRes2 = someClass.instanceMethod<String>("string");
+  var intRes2 = someClass.instanceMethod<int>(123);
+}
+
+class SomeClass {
+  static T staticMethod<T>(T input) {
+    return input;
+  }
+
+  T instanceMethod<T>(T input) {
+    return input;
   }
 }

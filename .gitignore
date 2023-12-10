@@ -14,6 +14,9 @@ doc/api/
 # Avoid committing generated Javascript files:
 *.dart.js
 
+# Generated dart code (by json_serializable, for example)
+*.g.dart
+
 # Produced by the --dump-info flag.
 *.info.json
 
