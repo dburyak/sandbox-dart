@@ -11,12 +11,17 @@ part 'json.g.dart';
 
 void entry() {
   // https://dart.dev/guides/json
+  // https://dart.dev/guides/libraries/library-tour#dartconvert---decoding-and-encoding-json-utf-8-and-more
   // 'dart:convert' - converts to maps and lists, doesn't have object mapping
   _jsonAsMapsOrLists();
   _toJsonHook();
 
+  // https://pub.dev/packages/json_serializable
   // json_serializable - converts to DTOs, has object mapping
   _jsonAnnotated();
+
+  // https://pub.dev/packages/built_value
+  // doesn't look really good, too much overcomplication for very little benefit
 }
 
 _jsonAsMapsOrLists() {

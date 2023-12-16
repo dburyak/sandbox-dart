@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 void main() {
   // https://medium.com/flutter-community/working-with-dates-in-dart-e81c70911811
 
@@ -35,4 +37,21 @@ void main() {
   print('duration in seconds: ${duration.inSeconds}');
   var afterDuration = now.add(duration);
   print('afterDuration: $afterDuration');
+
+  _formatting();
+}
+
+_formatting() {
+  var fmt = DateFormat('HH:mm');
+  var now = DateTime.now();
+  print('now.toString: $now');
+
+  var formattedNow = fmt.format(now);
+  print('fmt.format(now): $formattedNow');
+
+  var alarmFmt = DateFormat('HH:mm');
+  var alarmStr = "07:30";  // entered by user
+  var parsedDateTime = fmt.parse(alarmStr);
+  print('alarm parsed DateTime: $parsedDateTime');
+  print('alarm parsed DateTime: hour=${parsedDateTime.hour}, minute=${parsedDateTime.minute}');
 }
