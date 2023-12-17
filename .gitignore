@@ -16,6 +16,7 @@ doc/api/
 
 # Generated dart code (by json_serializable, for example)
 *.g.dart
+*.mocks.dart
 
 # Produced by the --dump-info flag.
 *.info.json
