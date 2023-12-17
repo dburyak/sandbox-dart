@@ -45,8 +45,18 @@ void main() async {
       print('received parsed json: type=${msg.runtimeType}, value=$msg');
     }
   }
-
   parserIsolate.kill();
+
+  // same as above, but creating 3 short-lived isolates
+  var futures = [jsonStr1, jsonStr2, jsonStr3].map((jsonStr) => Isolate.run(() {
+        print('{${Isolate.current.debugName}} parsing json: $jsonStr');
+        return json.decode(jsonStr) as Map<String, dynamic>;
+      }));
+  var jsons = await Future.wait(futures);
+  for (var json in jsons) {
+    print('parsed json: $json');
+  }
+
   print('--- done ---');
 }
 
