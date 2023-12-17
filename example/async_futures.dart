@@ -14,7 +14,23 @@ void main() {
     return futureLotteryParallel(5, 100, Duration(seconds: 3));
   }).then((_) {
     print('--- microtasks ---');
-    // TODO: microtasks example
+    // EL has 2 queues: microtasks and regular tasks
+    // all microtasks are executed before the next regular event-loop cycle
+    // microtasks are useful for scheduling small portions of async work that
+    // either:
+    //  - need to be done as continuation of the current EL cycle
+    //  - multiple microtasks need to be executed as a single undivisible unit,
+    //    as an operation which is atomic from the standpoint of the regular
+    //    event-loop tasks (f.e. multiple state changes in a single UI update)
+    var f1 = Future(() => print('f1'));
+    var m1 = Future.microtask(() => print('m1'));
+    var f2 = Future(() => print('f2'));
+    var m2 = Future.microtask(() => print('m2'));
+    var f3 = Future(() => print('f3'));
+    var m3 = Future.microtask(() => print('m3'));
+    // m1, m2, m3, f1, f2, f3
+    // microtasks are executed before the next regular event-loop cycle
+    return Future.wait([f1, m1, f2, m2, f3, m3]);
   }).then((_) {
     print('--- done ---');
   });

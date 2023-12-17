@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:sandbox_dart/async_callbacks.dart';
+
 void main() {
   _callbackSequential(() {
     _callbackParallel(() {
@@ -24,33 +26,9 @@ _callbackParallel(Function next) {
   });
 }
 
-class Ball {
-  int _num = 0;
-  final Random _rnd;
-  final String name;
-  final int max;
-  final Duration maxTime;
-
-  Ball(this.name, this.max, this.maxTime, this._rnd);
-
-  void roll(Function(int) resHandler) {
-    if (_num != 0) {
-      resHandler(_num);
-      return;
-    }
-    print('rolling $name ...');
-    var delayMs = _rnd.nextInt(maxTime.inMilliseconds);
-    Future.delayed(Duration(milliseconds: delayMs), () {
-      _num = _rnd.nextInt(max) + 1;
-      print('ball $name result: $_num');
-      resHandler(_num);
-    });
-  }
-}
-
 // -- callback style --
 void callbackLotterySequential(int maxNum, Duration maxTime, Function(List<int>) resHandler) {
-  var numBalls = 3;
+  var numBalls = 5;
   var rnd = Random();
   var balls = List.generate(numBalls, (i) => Ball("seq-${i + 1}", maxNum, maxTime, rnd));
   var res = <int>[];
@@ -60,7 +38,14 @@ void callbackLotterySequential(int maxNum, Duration maxTime, Function(List<int>)
       res.add(b2);
       balls[2].roll((b3) {
         res.add(b3);
-        resHandler(res);
+        balls[3].roll((b4) {
+          res.add(b4);
+          balls[4].roll((b5) {
+            res.add(b5);
+            print('sequential result: $res');
+            resHandler(res);
+          });
+        });
       });
     });
   });
