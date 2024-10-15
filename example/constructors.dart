@@ -158,6 +158,10 @@ abstract interface class SomeInterface {
   factory SomeInterface() {
     return SomeClass('hello');
   }
+
+  factory SomeInterface.another(String someProperty) {
+    return SomeClass(someProperty);
+  }
 }
 
 class SomeClass implements SomeInterface {

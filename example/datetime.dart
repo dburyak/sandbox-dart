@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 void main() {
   // https://medium.com/flutter-community/working-with-dates-in-dart-e81c70911811
 
-  // DateTime always captures time zone information
+  // DateTime always captures time offset information (not the TZ itself)
   // DateTime.now() captures local time zone, not UTC, and prints it localized
   // DateTime has microsecond precision
   var now = DateTime.now();
